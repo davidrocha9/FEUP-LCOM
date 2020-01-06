@@ -1,0 +1,27 @@
+/* XPM */
+static const char *eyeballs[] = {
+/* columns rows colors chars-per-pixel */
+"18 20 1 1 ",
+"  c #000000",
+/* pixels */
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  ",
+"                  "
+};
