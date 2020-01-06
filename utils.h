@@ -20,9 +20,10 @@
  */
 struct Player{
     /**
-     * @brief player's life;
+     * @brief player's life, bool checks if the players has lost;
      */
     int life;
+    bool dead;
 };
 
 /**

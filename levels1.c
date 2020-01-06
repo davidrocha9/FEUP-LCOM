@@ -502,11 +502,10 @@ void EasyLevel4(uint8_t *addrs, uint8_t *init_addrs, int t_irq, int k_irq, int m
                         updateBuffer(init_addrs, addrs);
                         switch (gamestate) {
                             case 0:
+                                Fala("what.", addrs, init_addrs, 5, t_irq, k_irq, m_irq);
+                                updateBuffer(init_addrs, addrs);
                                 TwoSec(t_irq, k_irq, m_irq);
                                 OneSec(t_irq, k_irq, m_irq);
-                                erase_sprite_screen(floweySprite, addrs);
-                                updateBuffer(init_addrs, addrs);
-                                draw_sprite(floweySprite, addrs);
                                 updateBuffer(init_addrs, addrs);
                                 gamestate++;
                                 break;

@@ -130,7 +130,7 @@ void (draw_menu2)(uint8_t *addrs, Sprite *setaSprite, int k_irq, int t_irq, int 
                                         break;
                                     case 595:
                                         SansLevel(heart, 490, 678, 500, 678, 10, addrs, k_irq, t_irq, m_irq);
-                                        return;
+                                        break;
                                     default:
                                         break;
                                 }

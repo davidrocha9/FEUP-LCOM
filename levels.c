@@ -786,7 +786,6 @@ struct Player FirstWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq, 
     int index = 0;
     hpSprite = create_sprite(hps[index], 100, 800, 10, 0);
     draw_sprite(hpSprite, temp_address);
-    bool pass = true;
     int updown = 0;
 
 
@@ -854,7 +853,7 @@ struct Player FirstWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq, 
                                 p.life -= 20;
                                 printf("%d\n", p.life);
                                 if (p.life == 0){
-                                    pass = false;
+                                    p.dead = true;
                                     EndGame(spr,temp_address,init_adress,t_irq, k_irq, m_irq);
                                     return p;
                                 }
@@ -924,7 +923,6 @@ struct Player SecondWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq,
     hpSprite = create_sprite(hps[index], 100, 800, 10, 0);
     draw_sprite(hpSprite,temp_address);
     updateBuffer(init_adress, temp_address);
-    bool pass = true;
     int release = 0;
     bool passmove = false;
     while(seconds < 15)
@@ -966,7 +964,6 @@ struct Player SecondWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq,
                             bonescol[0] = false;
                             bone2->x = 102;
                             bone2->y = 620;
-                            pass = false;
                             release = 0;
                         }
                         else if (bone3->x > 960 || bonescol[1] == true){
@@ -986,7 +983,7 @@ struct Player SecondWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq,
                                 p.life -= 20;
                                 if (p.life == 20){
                                     EndGame(spr, temp_address, init_adress, t_irq, k_irq, m_irq);
-                                    pass = false;
+                                    p.dead = true;
                                     return p;
                                 }
                                 erase_sprite_screen(bones[x], temp_address);
@@ -1054,7 +1051,6 @@ struct Player ThirdWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq, 
     hpSprite = create_sprite(hps[index], 100, 800, 10, 0);
     draw_sprite(hpSprite,temp_address);
     updateBuffer(init_adress, temp_address);
-    bool pass = true;
     int release = 0;
     bool passmove = false;
     while(seconds < 15)
@@ -1096,7 +1092,6 @@ struct Player ThirdWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq, 
                             bonescol[0] = false;
                             bone2->x = 102;
                             bone2->y = 620;
-                            pass = false;
                             release = 0;
                         }
                         else if (bone3->x > 960 || bonescol[1] == true){
@@ -1116,7 +1111,7 @@ struct Player ThirdWave(uint8_t *temp_address, uint8_t *init_adress, int k_irq, 
                                 p.life -= 20;
                                 if (p.life == 20){
                                     EndGame(spr, temp_address, init_adress, t_irq, k_irq, m_irq);
-                                    pass = false;
+                                    p.dead = true;
                                     return p;
                                 }
                                 erase_sprite_screen(bones[x], temp_address);
@@ -1166,10 +1161,16 @@ void SansLevel(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf
     spr = create_sprite(heart, xi, yi, 0, 0);
     p1 = FirstWave(temp_address, init_adress, k_irq, t_irq, m_irq, p1, xi, yi, spr);
     updateBuffer(init_adress, temp_address);
+    if (p1.dead)
+        return;
     p1 = SecondWave(temp_address, init_adress, k_irq, t_irq, m_irq, p1, xi, yi, spr);
     updateBuffer(init_adress, temp_address);
+    if (p1.dead)
+        return;
     p1 = ThirdWave(temp_address, init_adress, k_irq, t_irq, m_irq, p1, xi, yi, spr);
     updateBuffer(init_adress, temp_address);
+    if (p1.dead)
+        return;
     ExtremeLevel4(temp_address, init_adress, t_irq, k_irq, m_irq, p1);
     ExtremeLevel5(temp_address, init_adress, t_irq, k_irq, m_irq, p1);
     updateBuffer(init_adress, temp_address);

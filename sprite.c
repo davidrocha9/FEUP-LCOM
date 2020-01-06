@@ -256,11 +256,15 @@ Sprite *move_with_arrows(Sprite* spr, uint8_t *init_adress, uint8_t *addrs){
 }
 
 Sprite *move_with_mouse(Sprite* spr, uint8_t *init_adress, uint8_t *addrs, struct packet pp){
-    if ((spr->x <= 1004 && 0 <= spr->x)) {
-        spr->xspeed = pp.delta_x;
+    if ((spr->x + pp.delta_x<= 1004 && 0 <= spr->x - pp.delta_x)) {
         spr->yspeed = -pp.delta_y;
-        if ((spr->x + pp.delta_x <= 999) && (spr->x - pp.delta_x > 10)) {
-            spr = move_sprite(init_adress, spr);
+        spr->xspeed = pp.delta_x;
+        if ((spr->y + pp.delta_y<= 690 && 0 <= spr->y - pp.delta_y)) {
+            if ((spr->x + spr->xspeed <= 999) && (5 < spr->x + pp.delta_x)) {
+                if ((spr->y + spr->yspeed<= 680 && 0 <= spr->y - pp.delta_y)){
+                    spr = move_sprite(init_adress, spr);
+                }
+            }
         }
     }
     updateBuffer(addrs, init_adress);

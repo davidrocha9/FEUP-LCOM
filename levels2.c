@@ -572,7 +572,6 @@ struct Player NormalFirstWave(uint8_t *temp_address, uint8_t *init_adress, int k
     int index = 0;
     hpSprite = create_sprite(hps[index], 100, 800, 10, 0);
     draw_sprite(hpSprite, temp_address);
-    bool pass = true;
 
 
     //int x = 0;
@@ -619,7 +618,7 @@ struct Player NormalFirstWave(uint8_t *temp_address, uint8_t *init_adress, int k
                         if(detectCollision(spr, bone1) && bonescol == false){
                             p.life -= 20;
                             if (p.life == 0){
-                                pass = false;
+                                p.dead = true;
                                 EndGame(spr,temp_address,init_adress,t_irq, k_irq, m_irq);
                                 return p;
                             }
@@ -687,7 +686,6 @@ struct Player NormalSecondWave(uint8_t *temp_address, uint8_t *init_adress, int 
     hpSprite = create_sprite(hps[index], 100, 800, 10, 0);
     draw_sprite(hpSprite,temp_address);
     updateBuffer(init_adress, temp_address);
-    bool pass = true;
     while(seconds < 15)
     {
         //receiving the notification
@@ -741,7 +739,7 @@ struct Player NormalSecondWave(uint8_t *temp_address, uint8_t *init_adress, int 
                         if(detectCollision(spr, bone2) && bonescol == false){
                             p.life -= 20;
                             if (p.life == 0){
-                                pass = false;
+                                p.dead = true;
                                 EndGame(spr,temp_address,init_adress,t_irq, k_irq, m_irq);
                                 return p;
                             }
@@ -786,11 +784,16 @@ void PapyrusLevel(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t
     updateBuffer(init_adress, temp_address);
     struct Player p1;
     p1.life = 100;
+    p1.dead = false;
     Sprite* spr;
     spr = create_sprite(heart, xi, yi, 0, 0);
     p1 = NormalFirstWave(temp_address, init_adress, k_irq, t_irq, m_irq, p1, xi, yi, spr);
+    if (p1.dead)
+        return;
     updateBuffer(init_adress, temp_address);
     p1 = NormalSecondWave(temp_address, init_adress, k_irq, t_irq, m_irq, p1, xi, yi, spr);
+    if (p1.dead)
+        return;
     updateBuffer(init_adress, temp_address);
     NormalLevel3(temp_address, init_adress, t_irq, k_irq, m_irq, p1);
     updateBuffer(init_adress, temp_address);

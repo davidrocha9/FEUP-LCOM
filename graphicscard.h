@@ -23,4 +23,4 @@ unsigned get_hres();
  */
 unsigned get_vres();
 
-/** @} end of graphicsCard */
+/** @} end of graphicscard */

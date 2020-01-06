@@ -188,7 +188,6 @@ bool EndGame(Sprite* spr, uint8_t *addrs, uint8_t *init_address, int t_irq, int 
     FalaBranco("geeet dunked on !!!!!!", addrs, init_address, 22, t_irq, k_irq, m_irq);
     updateBuffer(init_address, addrs);
     TwoSec(t_irq, k_irq, m_irq);
-    vg_exit();
     return true;
 }
 
@@ -646,14 +645,31 @@ void FalaDate(Date data, uint8_t *addrs, uint8_t *init_addrs, int size, int t_ir
         case 2:
             nr = '2';
             break;
+        case 3:
+            nr = '3';
+            break;
+        case 4:
+            nr = '4';
+            break;
+        case 5:
+            nr = '5';
+            break;
+        case 6:
+            nr = '6';
+            break;
+        case 7:
+            nr = '7';
+            break;
+        case 8:
+            nr = '8';
+            break;
+        case 9:
+            nr = '9';
+            break;
         default:
             break;
     }
     frase[3] = nr;
-    if (data.minute / 10 >= 6){
-        data.minute = data.minute % 60;
-        frase[1] += 1;
-    }
     switch(data.minute % 10){
         case 0:
             nr = '0';
@@ -690,10 +706,6 @@ void FalaDate(Date data, uint8_t *addrs, uint8_t *init_addrs, int size, int t_ir
     }
     frase[4] = nr;
     frase[5] = ':';
-    if (data.second / 10 >= 6){
-        data.second = data.second % 60;
-        frase[4] += 1;
-    }
     switch(data.second / 10){
         case 0:
             nr = '0';
@@ -703,6 +715,27 @@ void FalaDate(Date data, uint8_t *addrs, uint8_t *init_addrs, int size, int t_ir
             break;
         case 2:
             nr = '2';
+            break;
+        case 3:
+            nr = '3';
+            break;
+        case 4:
+            nr = '4';
+            break;
+        case 5:
+            nr = '5';
+            break;
+        case 6:
+            nr = '6';
+            break;
+        case 7:
+            nr = '7';
+            break;
+        case 8:
+            nr = '8';
+            break;
+        case 9:
+            nr = '9';
             break;
         default:
             break;
@@ -743,7 +776,6 @@ void FalaDate(Date data, uint8_t *addrs, uint8_t *init_addrs, int size, int t_ir
             break;
     }
     frase[7] = nr;
-
     Sprite *letra;
     int index = 0, x = 710, y = 95;
     while(index < size) {
